@@ -1,0 +1,45 @@
+{% load i18n wagtailadmin_tags %}
+
+{% comment %}
+Warning: fully overrides https://github.com/wagtail/wagtail/blob/stable/6.2.x/wagtail/admin/templates/wagtailadmin/generic/history/action_cell.html
+so may break in future versions of Wagtail.
+{% endcomment %}
+
+<td {% if column.classname %}class="{{ column.classname }}"{% endif %}>
+    <div class="w-flex w-items-center w-justify-between">
+        <div>
+            <div class="w-flex w-items-center w-gap-2">
+                {{ value }}
+
+                {% if status %}
+                    {% status status classname="w-status--primary" %}
+                {% endif %}
+            </div>
+
+            {% if instance.comment %}
+                <div>{% trans "Comment" %}: <em>{{ instance.comment }}</em></div>
+            {% endif %}
+        </div>
+
+        {% if actions %}
+            {% dropdown toggle_icon="dots-horizontal" toggle_aria_label=_("Actions") %}
+                {% for action in actions %}
+                    <a href="{{ action.url }}">{{ action.label }}</a>
+                {% endfor %}
+
+                {% comment %} START ADDITION {% endcomment %}
+                <div data-controller="wagtaildraftsharing">
+                    <button
+                        data-action="wagtaildraftsharing#generate"
+                        data-wagtaildraftsharing-target="trigger"
+                        data-revision="{{ instance.revision.id }}"
+                    >
+                        {% trans 'Copy external sharing url' %}
+                    </button>
+                </div>
+                {% comment %} END ADDITION {% endcomment %}
+
+            {% enddropdown %}
+        {% endif %}
+    </div>
+</td>

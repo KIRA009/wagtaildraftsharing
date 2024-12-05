@@ -1,18 +1,6 @@
 repos:
--   repo: https://github.com/psf/black
-    rev: 23.1.0
-    hooks:
-    - id: black
-      args: ["wagtaildraftsharing", "setup.py", "testmanage.py", "--line-length=79"]
-      exclude: migrations
 -   repo: https://github.com/charliermarsh/ruff-pre-commit
-    rev: v0.0.254
+    rev: v0.6.9
     hooks:
       - id: ruff
         exclude: migrations
--   repo: https://github.com/pycqa/isort
-    rev: 5.12.0
-    hooks:
-      - id: isort
-        name: isort (python)
-        args: ["wagtaildraftsharing"]

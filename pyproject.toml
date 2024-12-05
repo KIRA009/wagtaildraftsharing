@@ -1,12 +1,15 @@
 [project]
 name = "wagtaildraftsharing"
-version = "0.0.4"
+version = "0.2.0"
 description = "Share wagtail drafts with private URLs."
 readme = "README.md"
-requires-python = ">=3.8"
+requires-python = ">=3.9"
 license = {text = "CC0"}
 authors = [
     {name = "Shohan Dutta Roy", email = "shohanduttaroy99@gmail.com" }
+]
+maintainers = [
+    {name = "Steve Jalim", email = "stevejalim@mozilla.com" }
 ]
 dependencies = [
     "wagtail>=5.1",
@@ -15,8 +18,10 @@ classifiers = [
     "Framework :: Django",
     "Framework :: Django :: 3.2",
     "Framework :: Django :: 4.2",
+    "Framework :: Django :: 5.1",
     "Framework :: Wagtail",
     "Framework :: Wagtail :: 5",
+    "Framework :: Wagtail :: 6",
     "License :: CC0 1.0 Universal (CC0 1.0) Public Domain Dedication",
     "License :: Public Domain",
     "Programming Language :: Python",
@@ -26,7 +31,9 @@ classifiers = [
 [project.optional-dependencies]
 testing = [
     "coverage[toml]",
+    "tox",
     "wagtail-factories",
+    "freezegun==1.5.1",
 ]
 
 [project.urls]
@@ -44,42 +51,6 @@ inventory = [
     "static/wagtaildraftsharing/*",
 ]
 
-[tool.black]
-line-length = 79
-target-version = ["py38"]
-include = '\.pyi?$'
-exclude = '''
-(
-  /(
-      \.eggs
-    | \.git
-    | \.tox
-    | \*.egg-info
-    | _build
-    | build
-    | dist
-    | migrations
-  )/
-)
-'''
-
-[tool.isort]
-profile = "black"
-line_length = 79
-lines_after_imports = 2
-skip = [".tox", "migrations", ".venv", "venv"]
-known_django = ["django"]
-known_wagtail = ["wagtail"]
-default_section = "THIRDPARTY"
-sections = [
-    "STDLIB",
-    "DJANGO",
-    "WAGTAIL",
-    "THIRDPARTY",
-    "FIRSTPARTY",
-    "LOCALFOLDER"
-]
-
 [tool.ruff]
 exclude = [
     ".git",
@@ -90,11 +61,23 @@ exclude = [
     ".venv",
     "venv",
 ]
+
+
+[tool.ruff.lint]
 ignore = []
 select = [
     "E",
     "F",
     "W",
+]
+
+[tool.ruff.lint.isort]
+section-order = [
+  "future",
+  "standard-library",
+  "third-party",
+  "first-party",
+  "local-folder",
 ]
 
 [tool.coverage.run]

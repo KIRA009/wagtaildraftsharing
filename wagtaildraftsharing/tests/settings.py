@@ -1,6 +1,5 @@
 import os
 
-
 PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BASE_DIR = os.path.dirname(PROJECT_DIR)
 
@@ -14,9 +13,7 @@ ROOT_URLCONF = "wagtaildraftsharing.tests.urls"
 
 DATABASES = {
     "default": {
-        "ENGINE": os.environ.get(
-            "DATABASE_ENGINE", "django.db.backends.sqlite3"
-        ),
+        "ENGINE": os.environ.get("DATABASE_ENGINE", "django.db.backends.sqlite3"),
         "NAME": os.environ.get("DATABASE_NAME", "wagtaildraftsharing.sqlite"),
         "USER": os.environ.get("DATABASE_USER", None),
         "PASSWORD": os.environ.get("DATABASE_PASS", None),
@@ -89,3 +86,12 @@ TEMPLATES = [
 WAGTAIL_SITE_NAME = "Test Site"
 
 WAGTAILADMIN_BASE_URL = "http://localhost:8000"
+
+USE_TZ = True
+
+# Wagtaildraftsharing settings
+
+WAGTAILDRAFTSHARING = {
+    # Here is where settings would be overridden in a real project
+    # "MAX_TTL": 12312321,
+}

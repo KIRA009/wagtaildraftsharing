@@ -48,6 +48,7 @@ Thumbs.db
 __pycache__/
 *.py[cod]
 .env
+build/
 
 # Django #
 #################
@@ -59,6 +60,7 @@ __pycache__/
 htmlcov/
 .tox/
 .coverage
+.coverage.*
 .cache
 nosetests.xml
 coverage.xml

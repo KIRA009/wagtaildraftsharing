@@ -1,0 +1,56 @@
+name: "CI" # Note that this name appears in the README's badge
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+  pull_request:
+#   Placeholder for the future if this work gets accepted into the upstream repo
+#   release:
+#     types: [published]
+
+jobs:
+  run-tests:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version:
+            - '3.9'
+            - '3.10'
+            - '3.11'
+            - '3.12'
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v5
+      with:
+        python-version: ${{ matrix.python-version }}
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        python -m pip install .'[testing]'
+    - name: Test with tox
+      run: tox
+
+#   Placeholder for the future if this work gets accepted into the upstream repo
+#   release:
+#     name: Release to PyPI
+#     if: github.event_name == 'release' && github.event.action == 'published'
+#     needs:
+#       - run-tests
+#     runs-on: ubuntu-latest
+#     steps:
+#       - uses: actions/checkout@v4
+#       - uses: actions/setup-python@v5
+#         with:
+#           python-version: 3.11
+#       - name: Install dependencies for package building only
+#         run: pip install build
+#       - name: Build package for upload to PyPI
+#         run: python -m build .
+#       - name: Upload the distribution to PyPI
+#         uses: pypa/gh-action-pypi-publish@v1.4.2
+#         with:
+#           user: __token__
+#           password: ${{ secrets.PYPI_API_TOKEN }}

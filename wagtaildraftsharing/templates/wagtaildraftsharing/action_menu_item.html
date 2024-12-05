@@ -1,0 +1,11 @@
+{% load wagtailadmin_tags i18n %}
+    <button
+        class="button"
+        data-controller="wagtaildraftsharing"
+        data-action="wagtaildraftsharing#generate"
+        data-wagtaildraftsharing-target="trigger"
+        data-revision="{{ revision.id }}"
+    >
+        {% if icon_name %}{% icon name=icon_name %}{% endif %}{{ label }}
+    </button>
+
